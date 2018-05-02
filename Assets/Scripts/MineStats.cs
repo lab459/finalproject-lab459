@@ -10,5 +10,6 @@ public class MineStats : MonoBehaviour {
     public float resourceNum;
     public string[] workersAllowed;
     public Dictionary<string, int> workerList = new Dictionary<string, int>();
+    public GameObject mineDoor;
 
 }

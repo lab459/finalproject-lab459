@@ -12,7 +12,7 @@ public class PopulateMineDropdown : MonoBehaviour {
 	void Start () {
         Transform manager = GameObject.Find("MineManager").transform;
 
-        // iterate over mines, and add unlocked mines to dropdown
+        // iterate over mines, and add unlocked mines to options
         foreach (Transform child in manager) {
             MineStats mine = child.GetComponent<MineStats>();
             if (!mine.locked) {
