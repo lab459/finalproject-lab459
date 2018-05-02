@@ -15,5 +15,6 @@ public class UnitStats : MonoBehaviour {
     public float recruiterCostMultiplier;
     public float recruiterSpeed;
     public int passiveRecruitNum;
+    public Sprite unitSprite;
 
 }

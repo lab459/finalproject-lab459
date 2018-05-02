@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
 
@@ -70,11 +72,20 @@ public class UIManager : MonoBehaviour {
         // hire recruiter
         else {
             print("hiring " + unit.unitName + " recruiter for " + cost + " units");
+            // subtract units from army and increase recruiters
             unit.unitNum -= cost;
             unit.recruiterNum++;
 
             // modify recruiter cost
             unit.recruiterCost *= unit.recruiterCostMultiplier;
+            cost = (int)Math.Floor(unit.recruiterCost);
+
+            // update hire button text
+            Text buttonText = GameObject.Find("Hire" + unit.unitName + "Recruiter").transform.Find("Text").GetComponent<Text>();
+            var newText = "Hire " + unit.unitName + " Recruiter\nCost: " + cost + " " + unit.unitName + "s";
+            // ensure that newlines are properly escaped
+            newText = newText.Replace("\\n", "\n");
+            buttonText.text = newText;
         }
     }
 }
