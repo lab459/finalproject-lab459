@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
 
-	public void Recruit (GameObject unitType)
-    {
+	public void Recruit (GameObject unitType) {
         UnitStats unit = unitType.GetComponent<UnitStats>();
 
         // ensure unit is unlocked
@@ -25,8 +24,7 @@ public class UIManager : MonoBehaviour {
         updateUnitNumDisplay(unit);
 	}
 
-    public void Employ (GameObject button)
-    {
+    public void Employ (GameObject button) {
         EmployButtonProperties properties = button.GetComponent<EmployButtonProperties>();
         UnitStats unit = properties.unitType.GetComponent<UnitStats>();
         MineStats mine = properties.mineType.GetComponent<MineStats>();
@@ -71,8 +69,7 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    public void Hire (GameObject unitType)
-    {
+    public void Hire (GameObject unitType) {
         UnitStats unit = unitType.GetComponent<UnitStats>();
         int cost = (int)Math.Floor(unit.recruiterCost);
 
@@ -109,23 +106,28 @@ public class UIManager : MonoBehaviour {
             // update UI
             updateUnitNumDisplay(unit);
             updateHireButtonDisplay(unit, cost);
+            updateRecruiterNumDisplay(unit);
         }
     }
 
-    public static void updateUnitNumDisplay (UnitStats unit)
-    {
+    public static void updateUnitNumDisplay (UnitStats unit) {
         // whenever the number of units in the army is changed, call this to find and update the num display
         Text displayText = GameObject.Find(unit.unitName + "Panel").transform.Find("NumInArmy").GetComponent<Text>();
         displayText.text = unit.unitNum.ToString();
     }
 
-    private void updateHireButtonDisplay(UnitStats unit, int cost)
-    {
+    private void updateHireButtonDisplay(UnitStats unit, int cost) {
         // whenever the price of hiring a recruiter changes, call this to find and update the cost display in the button
         Text buttonText = GameObject.Find(unit.unitName + "Panel").transform.Find("HireButton").transform.Find("Text").GetComponent<Text>();
         var newText = "Hire " + unit.unitName + " Recruiter\nCost: " + cost + " " + unit.unitName + "s";
         // ensure that newlines are properly escaped
         newText = newText.Replace("\\n", "\n");
         buttonText.text = newText;
+    }
+
+    private void updateRecruiterNumDisplay (UnitStats unit) {
+        // whenever the number, speed, or efficiency of recruiters changes, call this to find and update the recruiter display
+        Text displayText = GameObject.Find(unit.unitName + "Panel").transform.Find("NumRecruiters").GetComponent<Text>();
+        displayText.text = unit.recruiterNum + " recruiters recruiting " + (unit.passiveRecruitNum * unit.recruiterNum) + " " + unit.unitName + "s every " + unit.recruiterSpeed + " seconds";
     }
 }
