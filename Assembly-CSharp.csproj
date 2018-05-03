@@ -61,7 +61,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\EmployButtonProperties.cs" />
     <Compile Include="Assets\Scripts\MineStats.cs" />
-    <Compile Include="Assets\Scripts\PopulateMineDropdown.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\UnitStats.cs" />
     <Reference Include="UnityEditor.StandardEvents">

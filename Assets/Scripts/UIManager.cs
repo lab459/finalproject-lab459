@@ -18,6 +18,9 @@ public class UIManager : MonoBehaviour {
             print("recruiting " + unit.recruitNum + " " + unit.unitName + "s");
             unit.unitNum += unit.recruitNum;
         }
+
+        // update UI
+        updateUnitNumDisplay(unit);
 	}
 
     public void Employ (GameObject button) {
@@ -54,6 +57,9 @@ public class UIManager : MonoBehaviour {
             }
             // remove workers from army
             unit.unitNum -= properties.workerNum;
+
+            // update UI
+            updateUnitNumDisplay(unit);
         }
     }
 
@@ -80,12 +86,24 @@ public class UIManager : MonoBehaviour {
             unit.recruiterCost *= unit.recruiterCostMultiplier;
             cost = (int)Math.Floor(unit.recruiterCost);
 
-            // update hire button text
-            Text buttonText = GameObject.Find("Hire" + unit.unitName + "Recruiter").transform.Find("Text").GetComponent<Text>();
-            var newText = "Hire " + unit.unitName + " Recruiter\nCost: " + cost + " " + unit.unitName + "s";
-            // ensure that newlines are properly escaped
-            newText = newText.Replace("\\n", "\n");
-            buttonText.text = newText;
+            // update UI
+            updateUnitNumDisplay(unit);
+            updateHireButtonDisplay(unit, cost);
         }
+    }
+
+    private void updateUnitNumDisplay (UnitStats unit) {
+        // whenever the number of units in the army is changed, call this to find and update the num display
+        Text displayText = GameObject.Find(unit.unitName + "Panel").transform.Find("NumInArmy").GetComponent<Text>();
+        displayText.text = unit.unitNum.ToString();
+    }
+
+    private void updateHireButtonDisplay(UnitStats unit, int cost) {
+        // whenever the price of hiring a recruiter changes, call this to find and update the cost display in the button
+        Text buttonText = GameObject.Find(unit.unitName + "Panel").transform.Find("HireButton").transform.Find("Text").GetComponent<Text>();
+        var newText = "Hire " + unit.unitName + " Recruiter\nCost: " + cost + " " + unit.unitName + "s";
+        // ensure that newlines are properly escaped
+        newText = newText.Replace("\\n", "\n");
+        buttonText.text = newText;
     }
 }
