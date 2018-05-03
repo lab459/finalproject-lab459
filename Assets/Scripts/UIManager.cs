@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
+
+    private const int MAX_SPRITES_ON_SCREEN = 30;
 
 	public void Recruit (GameObject unitType) {
         UnitStats unit = unitType.GetComponent<UnitStats>();
@@ -21,7 +23,10 @@ public class UIManager : MonoBehaviour {
         }
 
         // update UI
-        updateUnitNumDisplay(unit);
+        UpdateUnitNumDisplay(unit);
+
+        // spawn a walker
+        SpawnUnitSprite(unit);
 	}
 
     public void Employ (GameObject button) {
@@ -65,7 +70,7 @@ public class UIManager : MonoBehaviour {
             unit.unitNum -= properties.workerNum;
 
             // update UI
-            updateUnitNumDisplay(unit);
+            UpdateUnitNumDisplay(unit);
         }
     }
 
@@ -104,19 +109,37 @@ public class UIManager : MonoBehaviour {
             cost = (int)Math.Floor(unit.recruiterCost);
 
             // update UI
-            updateUnitNumDisplay(unit);
-            updateHireButtonDisplay(unit, cost);
-            updateRecruiterNumDisplay(unit);
+            UpdateUnitNumDisplay(unit);
+            UpdateHireButtonDisplay(unit, cost);
+            UpdateRecruiterNumDisplay(unit);
         }
     }
 
-    public static void updateUnitNumDisplay (UnitStats unit) {
+
+    public static void SpawnUnitSprite (UnitStats unit) {
+        // when a unit is recruited, spawn a sprite that walks across the screen
+        // based on https://answers.unity.com/questions/1164719/2d-spawn-across-screen.html
+
+        // check that there aren't too many units on the screen at once
+        if (GameObject.FindGameObjectsWithTag("unit sprite").Length < MAX_SPRITES_ON_SCREEN) {
+            // set starting position
+            Vector3 spawnPosition = new Vector3(-10f, 2.8f, 0);
+            Quaternion spawnRotation = new Quaternion(0, 180, 0, 0);
+            // spawn the walker
+            GameObject walker = Instantiate(unit.unitSprite, spawnPosition, spawnRotation) as GameObject;
+            // randomize sort order
+            walker.GetComponent<SpriteRenderer>().sortingOrder = UnityEngine.Random.Range(0, 5);
+        }
+    }
+
+
+    public static void UpdateUnitNumDisplay (UnitStats unit) {
         // whenever the number of units in the army is changed, call this to find and update the num display
         Text displayText = GameObject.Find(unit.unitName + "Panel").transform.Find("NumInArmy").GetComponent<Text>();
         displayText.text = unit.unitNum.ToString();
     }
 
-    private void updateHireButtonDisplay(UnitStats unit, int cost) {
+    private void UpdateHireButtonDisplay(UnitStats unit, int cost) {
         // whenever the price of hiring a recruiter changes, call this to find and update the cost display in the button
         Text buttonText = GameObject.Find(unit.unitName + "Panel").transform.Find("HireButton").transform.Find("Text").GetComponent<Text>();
         var newText = "Hire " + unit.unitName + " Recruiter\nCost: " + cost + " " + unit.unitName + "s";
@@ -125,7 +148,7 @@ public class UIManager : MonoBehaviour {
         buttonText.text = newText;
     }
 
-    private void updateRecruiterNumDisplay (UnitStats unit) {
+    private void UpdateRecruiterNumDisplay (UnitStats unit) {
         // whenever the number, speed, or efficiency of recruiters changes, call this to find and update the recruiter display
         Text displayText = GameObject.Find(unit.unitName + "Panel").transform.Find("NumRecruiters").GetComponent<Text>();
         displayText.text = unit.recruiterNum + " recruiters recruiting " + (unit.passiveRecruitNum * unit.recruiterNum) + " " + unit.unitName + "s every " + unit.recruiterSpeed + " seconds";

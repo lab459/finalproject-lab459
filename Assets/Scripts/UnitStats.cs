@@ -16,7 +16,8 @@ public class UnitStats : MonoBehaviour {
     public float recruiterCostMultiplier;
     public float recruiterSpeed;
     public int passiveRecruitNum;
-    public Sprite unitSprite;
+    public GameObject unitSprite;
+    private const int MAX_BATCH = 5;
 
     public IEnumerator PassiveRecruit() {
 
@@ -28,16 +29,21 @@ public class UnitStats : MonoBehaviour {
         {
             print("passive recruit failed; " + unitName + " is locked");
         }
-        // recruit unit
+        // recruit units
         else
         {
             var recruitingNow = recruiterNum * passiveRecruitNum;
             print("passively recruiting " + recruitingNow + " " + unitName + "s");
             unitNum += recruitingNow;
+
+            // spawn up to max-batch walkers
+            for (int i = 0; i < MAX_BATCH; i++) {
+                UIManager.SpawnUnitSprite(this);
+            }
         }
 
         // update UI
-        UIManager.updateUnitNumDisplay(this);
+        UIManager.UpdateUnitNumDisplay(this);
 
         StartCoroutine(PassiveRecruit());
     }
