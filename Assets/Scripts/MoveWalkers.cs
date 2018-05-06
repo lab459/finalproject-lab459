@@ -18,7 +18,7 @@ public class MoveWalkers : MonoBehaviour {
 
         // destroy units that reach their destination
         if (this.transform.position == destination) {
-            Destroy(this);
+            Destroy(gameObject);
         }
 	}
 }
