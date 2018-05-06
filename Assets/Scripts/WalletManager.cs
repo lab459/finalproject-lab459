@@ -45,6 +45,7 @@ public class WalletManager : MonoBehaviour {
             }
         }
 
+        AddWalletItem("WalletSpacer", " ", fontSmall);
         AddWalletItem("ResourceWalletTitle", "RESOURCES", fontLarge);
 
         var mineStats = mineManager.GetComponentsInChildren<MineStats>();
