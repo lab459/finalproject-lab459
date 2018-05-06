@@ -10,6 +10,7 @@ public class WalletManager : MonoBehaviour {
     public GameObject mineManager;
     public GameObject armyManager;
     public GameObject textPrefab;
+    public GameObject spacerPrefab;
     public int fontLarge = 24;
     public int fontSmall = 20;
 
@@ -30,6 +31,7 @@ public class WalletManager : MonoBehaviour {
         Empty();
 
         // populate the list with army units first, then resources
+        AddSpacer(0);
         AddWalletItem("ArmyWalletTitle", "ARMY", fontLarge);
 
         // iterate over manager's children
@@ -45,7 +47,7 @@ public class WalletManager : MonoBehaviour {
             }
         }
 
-        AddWalletItem("WalletSpacer", " ", fontSmall);
+        AddSpacer(5);
         AddWalletItem("ResourceWalletTitle", "RESOURCES", fontLarge);
 
         var mineStats = mineManager.GetComponentsInChildren<MineStats>();
@@ -75,5 +77,12 @@ public class WalletManager : MonoBehaviour {
         newObj.name = objName;
         objText.text = text;
         objText.resizeTextMaxSize = fontSize;
+    }
+
+    void AddSpacer(int size)
+    {
+        var newObj = (GameObject)Instantiate(spacerPrefab, transform);
+        newObj.name = "WalletSpacer";
+        newObj.GetComponent<RectTransform>().sizeDelta = new Vector2(160, size);
     }
 }
