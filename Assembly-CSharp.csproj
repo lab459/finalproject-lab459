@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\MoveWalkers.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\UnitStats.cs" />
+    <Compile Include="Assets\Scripts\WalletManager.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/lauraberman/GD50/CATO/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

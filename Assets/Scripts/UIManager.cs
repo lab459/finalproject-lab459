@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +7,7 @@ public class UIManager : MonoBehaviour {
 
     private const int MAX_SPRITES_ON_SCREEN = 30;
 
-	public void Recruit (GameObject unitType) {
+    public void Recruit (GameObject unitType) {
         UnitStats unit = unitType.GetComponent<UnitStats>();
 
         // ensure unit is unlocked
@@ -27,7 +26,7 @@ public class UIManager : MonoBehaviour {
 
         // spawn a walker
         SpawnUnitSprite(unit);
-	}
+    }
 
     public void Employ (GameObject button) {
         EmployButtonProperties properties = button.GetComponent<EmployButtonProperties>();

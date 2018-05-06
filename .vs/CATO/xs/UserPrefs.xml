@@ -1,13 +1,9 @@
 ﻿<Properties StartupConfiguration="{00336624-8498-0CD6-2423-058341127466}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MoveWalkers.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/WalletManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/UnitStats.cs" Line="41" Column="9" />
-      <File FileName="Assets/Scripts/MineStats.cs" Line="14" Column="1" />
-      <File FileName="Assets/Scripts/UIManager.cs" Line="121" Column="65" />
-      <File FileName="Assets/Scripts/EmployButtonProperties.cs" Line="5" Column="54" />
-      <File FileName="Assets/ArmyManager.cs" Line="5" Column="25" />
-      <File FileName="Assets/Scripts/MoveWalkers.cs" Line="10" Column="94" />
+      <File FileName="Assets/Scripts/UIManager.cs" Line="160" Column="1" />
+      <File FileName="Assets/Scripts/WalletManager.cs" Line="15" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
