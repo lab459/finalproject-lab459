@@ -37,13 +37,11 @@ public class UnitStats : MonoBehaviour {
             unitNum += recruitingNow;
 
             // spawn up to max-batch walkers
-            for (int i = 0; i < MAX_BATCH; i++) {
-                UIManager.SpawnUnitSprite(this);
+            recruitingNow = Mathf.Min(recruitingNow, MAX_BATCH);
+            for (int i = 0; i < recruitingNow; i++) {
+                UIManager.SpawnWalker(this);
             }
         }
-
-        // update UI
-        UIManager.UpdateUnitNumDisplay(this);
 
         StartCoroutine(PassiveRecruit());
     }

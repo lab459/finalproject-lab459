@@ -21,11 +21,8 @@ public class UIManager : MonoBehaviour {
             unit.unitNum += unit.recruitNum;
         }
 
-        // update UI
-        UpdateUnitNumDisplay(unit);
-
         // spawn a walker
-        SpawnUnitSprite(unit);
+        SpawnWalker(unit);
     }
 
     public void Employ (GameObject button) {
@@ -67,9 +64,6 @@ public class UIManager : MonoBehaviour {
             }
             // remove workers from army
             unit.unitNum -= properties.workerNum;
-
-            // update UI
-            UpdateUnitNumDisplay(unit);
         }
     }
 
@@ -108,14 +102,13 @@ public class UIManager : MonoBehaviour {
             cost = (int)Math.Floor(unit.recruiterCost);
 
             // update UI
-            UpdateUnitNumDisplay(unit);
             UpdateHireButtonDisplay(unit, cost);
             UpdateRecruiterNumDisplay(unit);
         }
     }
 
 
-    public static void SpawnUnitSprite (UnitStats unit) {
+    public static void SpawnWalker (UnitStats unit) {
         // when a unit is recruited, spawn a sprite that walks across the screen
         // based on https://answers.unity.com/questions/1164719/2d-spawn-across-screen.html
 
@@ -129,13 +122,6 @@ public class UIManager : MonoBehaviour {
             // randomize sort order
             walker.GetComponent<SpriteRenderer>().sortingOrder = UnityEngine.Random.Range(0, 5);
         }
-    }
-
-
-    public static void UpdateUnitNumDisplay (UnitStats unit) {
-        // whenever the number of units in the army is changed, call this to find and update the num display
-        Text displayText = GameObject.Find(unit.unitName + "Panel").transform.Find("NumInArmy").GetComponent<Text>();
-        displayText.text = unit.unitNum.ToString();
     }
 
     private void UpdateHireButtonDisplay(UnitStats unit, int cost) {
