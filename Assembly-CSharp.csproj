@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\EmployButtonProperties.cs" />
     <Compile Include="Assets\Scripts\MineStats.cs" />
     <Compile Include="Assets\Scripts\MoveWalkers.cs" />
+    <Compile Include="Assets\Scripts\TabProperties.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\UnitStats.cs" />
     <Compile Include="Assets\Scripts\WalletManager.cs" />

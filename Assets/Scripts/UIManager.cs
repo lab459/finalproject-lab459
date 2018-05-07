@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
 
+    public GameObject activeTab;
     private const int MAX_SPRITES_ON_SCREEN = 30;
+    private const float ACTIVE_TAB_ALPHA = 1f;
+    private const float INACTIVE_TAB_ALPHA = 0.3f;
 
     public void Recruit (GameObject unitType) {
         UnitStats unit = unitType.GetComponent<UnitStats>();
@@ -144,5 +147,29 @@ public class UIManager : MonoBehaviour {
         // whenever the number, speed, or efficiency of recruiters changes, call this to find and update the recruiter display
         Text displayText = GameObject.Find(unit.unitName + "Panel").transform.Find("NumRecruiters").GetComponent<Text>();
         displayText.text = unit.recruiterNum + " recruiters recruiting " + (unit.passiveRecruitNum * unit.recruiterNum) + " " + unit.unitName + "s every " + unit.recruiterSpeed + " seconds";
+    }
+
+    public void SwitchTabs(GameObject newTab) {
+        if (newTab != activeTab) {
+            // switch tab colors
+            Color c = activeTab.GetComponent<Image>().color;
+            c.a = INACTIVE_TAB_ALPHA;
+            activeTab.GetComponent<Image>().color = c;
+
+            c = newTab.GetComponent<Image>().color;
+            c.a = ACTIVE_TAB_ALPHA;
+            newTab.GetComponent<Image>().color = c;
+
+            // get panels associated with tabs
+            var newPanel = newTab.GetComponent<TabProperties>().panel;
+            var activePanel = activeTab.GetComponent<TabProperties>().panel;
+
+            // switch active panels
+            activePanel.SetActive(false);
+            newPanel.SetActive(true);
+
+            // store currently active tab
+            activeTab = newTab;
+        }
     }
 }
