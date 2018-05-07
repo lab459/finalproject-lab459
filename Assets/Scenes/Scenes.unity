@@ -1129,6 +1129,16 @@ Prefab:
       propertyPath: mineDoorAnimation
       value: 
       objectReference: {fileID: 7400000, guid: 0cb215805cc3a4a03b031bbf98e50d26, type: 2}
+    - target: {fileID: 114711279725230600, guid: cc03ade1eb0784601a8b9cd668d10bae,
+        type: 2}
+      propertyPath: mineSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114711279725230600, guid: cc03ade1eb0784601a8b9cd668d10bae,
+        type: 2}
+      propertyPath: locked
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114209868213370822, guid: cc03ade1eb0784601a8b9cd668d10bae, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: cc03ade1eb0784601a8b9cd668d10bae, type: 2}
@@ -2756,9 +2766,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mineName: Meat Quarry
-  locked: 0
+  locked: 1
   resourceName: Meat
   resourceNum: 0
+  mineSpeed: 10
   workersAllowed:
   - Orc
   mineDoor: {fileID: 21300000, guid: 720739e56cf924aa9af6023d17fa2bb1, type: 3}
@@ -3526,6 +3537,7 @@ MonoBehaviour:
   locked: 0
   resourceName: Iron
   resourceNum: 0
+  mineSpeed: 1
   workersAllowed:
   - Orc
   mineDoor: {fileID: 21300000, guid: f802d97d301cb48c18668e7690e30c32, type: 3}
@@ -4561,6 +4573,11 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 8f173a07a67df4e6b8bccccc32b94605,
         type: 3}
+    - target: {fileID: 114711279725230600, guid: cc03ade1eb0784601a8b9cd668d10bae,
+        type: 2}
+      propertyPath: mineSpeed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114209868213370822, guid: cc03ade1eb0784601a8b9cd668d10bae, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: cc03ade1eb0784601a8b9cd668d10bae, type: 2}

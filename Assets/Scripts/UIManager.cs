@@ -53,14 +53,21 @@ public class UIManager : MonoBehaviour {
         else {
             print("employing " + properties.workerNum + " " + unit.unitName + "s in the " + mine.mineName);
 
-            // if this is the first worker of this type, add the type to the workerlist first
-            if (!mine.workerList.ContainsKey(unit.unitName))
+            // if this is the first worker of ANY type, add it to the workerlist and start gathering coroutine
+            if (mine.workerList.Count == 0)
             {
-                mine.workerList.Add(unit.unitName, properties.workerNum);
+                print("starting " + mine.mineName + " gathering coroutine");
+                mine.workerList.Add(unit, properties.workerNum);
+                StartCoroutine(mine.GatherResources());
+            }
+            // if it's just the first worker of THIS type, add it to the workerlist
+            else if (!mine.workerList.ContainsKey(unit))
+            {
+                mine.workerList.Add(unit, properties.workerNum);
             }
             // otherwise, add to existing workerlist entry
             else {
-                mine.workerList[unit.unitName] += properties.workerNum;
+                mine.workerList[unit] += properties.workerNum;
             }
             // remove workers from army
             unit.unitNum -= properties.workerNum;
