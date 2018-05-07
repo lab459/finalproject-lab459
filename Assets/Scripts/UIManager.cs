@@ -172,4 +172,40 @@ public class UIManager : MonoBehaviour {
             activeTab = newTab;
         }
     }
+
+    public void AdminCheat1K() {
+        // cheat to give yourself 1K of everything (unlocked)
+        print("CHEATING -- granting 1K unlocked units & resources");
+
+        var units = GameObject.Find("ArmyManager").GetComponentsInChildren<UnitStats>();
+        var mines = GameObject.Find("MineManager").GetComponentsInChildren<MineStats>();
+
+        foreach (var unit in units)
+        {
+            if (!unit.locked) { unit.unitNum += 1000; }
+        }
+        foreach (var mine in mines)
+        {
+            if (!mine.locked) { mine.resourceNum += 1000; }
+        }
+
+
+    }
+
+    public void AdminCheatUnlockAll() {
+        // cheat to unlock everything
+       print("CHEATING -- unlocking all unit & resource types");
+
+        var units = GameObject.Find("ArmyManager").GetComponentsInChildren<UnitStats>();
+        var mines = GameObject.Find("MineManager").GetComponentsInChildren<MineStats>();
+
+        foreach (var unit in units)
+        {
+            unit.locked = false;
+        }
+        foreach (var mine in mines)
+        {
+            mine.locked = false;
+        }
+    }
 }

@@ -36,12 +36,12 @@ public class WalletManager : MonoBehaviour {
 
         // iterate over manager's children
         var unitStats = armyManager.GetComponentsInChildren<UnitStats>();
-        for (int i = 0; i < unitStats.Length; i++)
+        foreach (var unit in unitStats)
         {
-            if (!unitStats[i].locked) {
+            if (!unit.locked) {
                 AddWalletItem(
-                    "ArmyWallet" + unitStats[i].unitName, //name
-                    unitStats[i].unitName + ": " + unitStats[i].unitNum.ToString(), //text
+                    "ArmyWallet" + unit.unitName, //name
+                    unit.unitName + ": " + unit.unitNum.ToString(), //text
                     fontSmall
                 );
             }
@@ -51,12 +51,12 @@ public class WalletManager : MonoBehaviour {
         AddWalletItem("ResourceWalletTitle", "RESOURCES", fontLarge);
 
         var mineStats = mineManager.GetComponentsInChildren<MineStats>();
-        for (int i = 0; i < mineStats.Length; i++)
+        foreach (var mine in mineStats)
         {
-            if (!mineStats[i].locked) {
+            if (!mine.locked) {
                 AddWalletItem(
-                    "ResourceWallet" + mineStats[i].resourceName, //name
-                    mineStats[i].resourceName + ": " + mineStats[i].resourceNum.ToString(), //text
+                    "ResourceWallet" + mine.resourceName, //name
+                    mine.resourceName + ": " + mine.resourceNum.ToString(), //text
                     fontSmall
                 );
             }
