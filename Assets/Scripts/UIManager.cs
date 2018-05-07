@@ -22,11 +22,13 @@ public class UIManager : MonoBehaviour {
         else {
             print("actively recruiting " + unit.recruitNum + " " + unit.unitName + "s");
             unit.unitNum += unit.recruitNum;
-        }
 
-        // spawn a walker
-        SpawnWalker(unit);
+            // spawn a walker
+            SpawnWalker(unit);
+        }
     }
+
+    // TODO: write an update loop with a switch statement to handle updating the currently active panel??
 
     public void Employ (GameObject button) {
         EmployButtonProperties properties = button.GetComponent<EmployButtonProperties>();
