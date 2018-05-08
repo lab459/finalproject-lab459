@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    // TODO: write an update loop with a switch statement to handle updating the currently active panel??
+    // TODO: write an update loop with a switch statement to handle updating the currently active panel?
 
     public void Employ (GameObject button) {
         EmployButtonProperties properties = button.GetComponent<EmployButtonProperties>();
@@ -176,7 +176,7 @@ public class UIManager : MonoBehaviour {
     }
 
     public void AdminCheat1K() {
-        // cheat to give yourself 1K of everything (unlocked)
+        // cheat to give yourself 1K of everything you've unlocked
         print("CHEATING -- granting 1K unlocked units & resources");
 
         var units = GameObject.Find("ArmyManager").GetComponentsInChildren<UnitStats>();

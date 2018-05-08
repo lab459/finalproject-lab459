@@ -4,7 +4,9 @@ using System.Collections;
 public class UnitStats : MonoBehaviour {
     
     public string unitName;
+    public string unitNamePlural;
     public bool locked;
+    public string unitDesc;
     public int unitNum;
     public int recruitNum;
     public int baseStrength;
