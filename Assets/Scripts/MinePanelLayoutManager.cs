@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,9 @@ public class MinePanelLayoutManager : MonoBehaviour {
 
     public GameObject minePanelPrefab;
     public GameObject mineManager;
+    public GameObject armyManager;
     public GameObject myUIManager;
+    public GameObject employButtonPrefab;
 
     private void OnEnable()
     {
@@ -95,14 +98,51 @@ public class MinePanelLayoutManager : MonoBehaviour {
                     child.GetComponent<Text>().text = newText;
                     break;
 
-                case "EmployButton":
-                    //TODO FIRST THING TOMORROW!
+                case "EmployButtonContainer":
+                    // large code chunk, so I popped it out into a separate function
+                    HandleEmployButtonContainer(mine, child);
+
                     break;
 
                 default:
                     print("unexpected child in unitpanel prefab");
                     break;
             }
+        }
+    }
+
+    // generates and repositions buttons that employ workers in various mines
+    private void HandleEmployButtonContainer(MineStats mine, Transform child) 
+    {
+        // get a list of all the unlocked units that can be employed in the current mine
+        List<UnitStats> validWorkers = new List<UnitStats>();
+        var allWorkers = armyManager.GetComponentsInChildren<UnitStats>();
+
+        foreach (UnitStats worker in allWorkers)
+        {
+            if (mine.workersAllowed.Contains(worker.unitName) && !worker.locked)
+            {
+                validWorkers.Add(worker);
+            }
+        }
+
+        // Generate buttons for all valid units, filling space of default rect transform
+        var availableSpace = child.GetComponent<RectTransform>().sizeDelta;
+        var buttonSize = new Vector2(availableSpace.x, availableSpace.y / validWorkers.Count);
+        var plusY = 0f;
+        GameObject newButton;
+
+        foreach (UnitStats worker in validWorkers)
+        {
+            newButton = Instantiate(employButtonPrefab, child, false);
+            newButton.name = "Employ" + worker.unitName + mine.resourceName + "Button";
+            RectTransform rt = newButton.GetComponent<RectTransform>();
+            rt.sizeDelta = buttonSize;
+            Vector3 pos = rt.anchoredPosition;
+            rt.anchoredPosition = new Vector3(pos.x, pos.y + plusY, 0); // shift button below previous button
+            plusY -= buttonSize.y;
+
+            // TODO: attach onclick functions here!!!!!
         }
     }
 }
