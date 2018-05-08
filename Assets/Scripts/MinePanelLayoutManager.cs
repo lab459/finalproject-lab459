@@ -126,14 +126,17 @@ public class MinePanelLayoutManager : MonoBehaviour {
             }
         }
 
-        // Generate buttons for all valid units, filling space of default rect transform
+        // Generate buttons for all valid units, filling space of placeholder rect transform in prefab
         var availableSpace = child.GetComponent<RectTransform>().sizeDelta;
         var buttonSize = new Vector2(availableSpace.x, availableSpace.y / validWorkers.Count);
-        var plusY = 0f;
+        var plusY = 10f; // start at 10 to fix offset bug, figure out later
+        // This is a placeholder variable allowing this system to have flexible employ numbers down the line
+        var workerNum = 1;
         GameObject newButton;
 
         foreach (UnitStats worker in validWorkers)
         {
+            // generate, resize, and relocate employ button
             newButton = Instantiate(employButtonPrefab, child, false);
             newButton.name = "Employ" + worker.unitName + mine.resourceName + "Button";
             RectTransform rt = newButton.GetComponent<RectTransform>();
@@ -142,7 +145,14 @@ public class MinePanelLayoutManager : MonoBehaviour {
             rt.anchoredPosition = new Vector3(pos.x, pos.y + plusY, 0); // shift button below previous button
             plusY -= buttonSize.y;
 
-            // TODO: attach onclick functions here!!!!!
+            // modify button text
+            var newText = "Employ " + workerNum + " ";
+            if (workerNum == 1) { newText += worker.unitName; } else { newText += worker.unitNamePlural; }
+            newButton.transform.GetComponentInChildren<Text>().text = newText;
+
+            // hook up onclick function
+            newButton.GetComponent<Button>().onClick.AddListener(delegate { myUIManager.GetComponent<UIManager>().Employ(worker, mine, 1); });
+
         }
     }
 }

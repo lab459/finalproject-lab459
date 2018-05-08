@@ -1,13 +1,13 @@
 ﻿<Properties StartupConfiguration="{00336624-8498-0CD6-2423-058341127466}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UnitStats.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UIManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/UIManager.cs" Line="205" Column="38" />
+      <File FileName="Assets/Scripts/UIManager.cs" Line="77" Column="6" />
       <File FileName="Assets/Scripts/UnitStats.cs" Line="7" Column="34" />
       <File FileName="Assets/Scripts/WalletManager.cs" Line="89" Column="1" />
-      <File FileName="Assets/Scripts/UnitPanelLayoutManager.cs" Line="72" Column="27" />
-      <File FileName="Assets/Scripts/MinePanelLayoutManager.cs" Line="68" Column="27" />
-      <File FileName="Assets/Scripts/MineStats.cs" Line="9" Column="24" />
+      <File FileName="Assets/Scripts/UnitPanelLayoutManager.cs" Line="95" Column="46" />
+      <File FileName="Assets/Scripts/MinePanelLayoutManager.cs" Line="136" Column="9" />
+      <File FileName="Assets/Scripts/MineStats.cs" Line="51" Column="67" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

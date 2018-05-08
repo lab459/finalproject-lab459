@@ -30,10 +30,7 @@ public class UIManager : MonoBehaviour {
 
     // TODO: write an update loop with a switch statement to handle updating the currently active panel?
 
-    public void Employ (GameObject button) {
-        EmployButtonProperties properties = button.GetComponent<EmployButtonProperties>();
-        UnitStats unit = properties.unitType.GetComponent<UnitStats>();
-        MineStats mine = properties.mineType.GetComponent<MineStats>();
+    public void Employ (UnitStats unit, MineStats mine, int workerNum) {
 
         // ensure unit and mine are unlocked
         if (mine.locked)
@@ -50,32 +47,32 @@ public class UIManager : MonoBehaviour {
             print("employ workers failed; " + unit.unitName + " can not work in the " + mine.mineName);
         }
         // ensure desired number of workers exist
-        else if (unit.unitNum < properties.workerNum)
+        else if (unit.unitNum < workerNum)
         {
-            print("employ workers failed; fewer than " + properties.workerNum + " " + unit.unitName + "s in army");
+            print("employ workers failed; fewer than " + workerNum + " " + unit.unitName + "s in army");
         }
         // employ workers
         else {
-            print("employing " + properties.workerNum + " " + unit.unitName + "s in the " + mine.mineName);
+            print("employing " + workerNum + " " + unit.unitName + "s in the " + mine.mineName);
 
             // if this is the first worker of ANY type, add it to the workerlist and start gathering coroutine
             if (mine.workerList.Count == 0)
             {
                 print("starting " + mine.mineName + " gathering coroutine");
-                mine.workerList.Add(unit, properties.workerNum);
+                mine.workerList.Add(unit, workerNum);
                 StartCoroutine(mine.GatherResources());
             }
             // if it's just the first worker of THIS type, add it to the workerlist
             else if (!mine.workerList.ContainsKey(unit))
             {
-                mine.workerList.Add(unit, properties.workerNum);
+                mine.workerList.Add(unit, workerNum);
             }
             // otherwise, add to existing workerlist entry
             else {
-                mine.workerList[unit] += properties.workerNum;
+                mine.workerList[unit] += workerNum;
             }
             // remove workers from army
-            unit.unitNum -= properties.workerNum;
+            unit.unitNum -= workerNum;
         }
     }
 

@@ -182,11 +182,12 @@
 -define:ENABLE_UNITY_COLLECTIONS_CHECKS
 -define:UNITY_TEAM_LICENSE
 -define:ENABLE_VSTU
-'Assets/Scripts/EmployButtonProperties.cs'
+'Assets/Scripts/MinePanelLayoutManager.cs'
 'Assets/Scripts/MineStats.cs'
 'Assets/Scripts/MoveWalkers.cs'
-'Assets/Scripts/TabScript.cs'
+'Assets/Scripts/TabProperties.cs'
 'Assets/Scripts/UIManager.cs'
+'Assets/Scripts/UnitPanelLayoutManager.cs'
 'Assets/Scripts/UnitStats.cs'
 'Assets/Scripts/WalletManager.cs'
 -lib:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity'

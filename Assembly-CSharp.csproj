@@ -59,7 +59,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\EmployButtonProperties.cs" />
     <Compile Include="Assets\Scripts\MinePanelLayoutManager.cs" />
     <Compile Include="Assets\Scripts\MineStats.cs" />
     <Compile Include="Assets\Scripts\MoveWalkers.cs" />
