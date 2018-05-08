@@ -2,10 +2,11 @@
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UnitPanelLayoutManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/UIManager.cs" Line="190" Column="10" />
-      <File FileName="Assets/Scripts/UnitStats.cs" Line="12" Column="27" />
+      <File FileName="Assets/Scripts/UIManager.cs" Line="205" Column="38" />
+      <File FileName="Assets/Scripts/UnitStats.cs" Line="7" Column="34" />
       <File FileName="Assets/Scripts/WalletManager.cs" Line="89" Column="1" />
-      <File FileName="Assets/Scripts/UnitPanelLayoutManager.cs" Line="6" Column="36" />
+      <File FileName="Assets/Scripts/UnitPanelLayoutManager.cs" Line="52" Column="6" />
+      <File FileName="Assets/Scripts/MinePanelLayoutManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

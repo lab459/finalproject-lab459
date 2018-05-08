@@ -140,15 +140,22 @@ public class UIManager : MonoBehaviour {
         // whenever the price of hiring a recruiter changes, call this to find and update the cost display in the button
         Text buttonText = GameObject.Find(unit.unitName + "Panel").transform.Find("HireButton").transform.Find("Text").GetComponent<Text>();
         var newText = "Hire " + unit.unitName + " Recruiter\nCost: " + cost + " " + unit.unitName + "s";
-        // ensure that newlines are properly escaped
-        newText = newText.Replace("\\n", "\n");
+        newText = newText.Replace("\\n", "\n"); // ensure that newlines are properly escaped
         buttonText.text = newText;
     }
 
-    private void UpdateRecruiterNumDisplay (UnitStats unit) {
+    private void UpdateRecruiterNumDisplay(UnitStats unit)
+    {
         // whenever the number, speed, or efficiency of recruiters changes, call this to find and update the recruiter display
+        // TODO: this is an awkward construction. Can I make it neater?
         Text displayText = GameObject.Find(unit.unitName + "Panel").transform.Find("NumRecruiters").GetComponent<Text>();
-        displayText.text = unit.recruiterNum + " recruiters recruiting " + (unit.passiveRecruitNum * unit.recruiterNum) + " " + unit.unitName + "s every " + unit.recruiterSpeed + " seconds";
+        var newText = unit.recruiterNum + " ";
+        if (unit.recruiterNum == 1) { newText += "recruiter "; } else { newText += "recruiters "; }
+        var recruitingNum = (int)(unit.recruiterNum * unit.passiveRecruitNum);
+        newText += "generating " + recruitingNum + " ";
+        if (recruitingNum == 1) { newText += unit.unitName; } else { newText += unit.unitNamePlural; }
+        if ((int)unit.recruiterSpeed == 1) { newText += " every second"; } else { newText += " every " + unit.recruiterSpeed + " seconds"; }
+        displayText.text = newText;
     }
 
     public void SwitchTabs(GameObject newTab) {

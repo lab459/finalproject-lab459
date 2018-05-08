@@ -10,16 +10,16 @@ public class UnitPanelLayoutManager : MonoBehaviour
     public GameObject armyManager;
     public GameObject myUIManager;
 
-    // Use this for initialization
-    void Start()
-    {
-        Populate();
-
-    }
-
 	private void OnEnable()
 	{
+        // repopulate the panel every time it is opened
         Populate();
+	}
+
+	private void OnDisable()
+	{
+        // empty the panel every time it closes
+        Empty();
 	}
 
 	void Populate()
@@ -64,7 +64,7 @@ public class UnitPanelLayoutManager : MonoBehaviour
                     break;
 
                 case "UnitPortrait":
-                    child.GetComponent<SpriteRenderer>().sprite = unit.unitSprite.GetComponent<SpriteRenderer>().sprite;
+                    child.GetComponent<Image>().sprite = unit.unitSprite.GetComponent<SpriteRenderer>().sprite;
                     break;
 
                 case "UnitDesc":
@@ -96,35 +96,7 @@ public class UnitPanelLayoutManager : MonoBehaviour
                     break;
 
                 case "NumRecruiters":
-                    // TODO: is there a less ugly way to construct this complex sentence?
-                    if (unit.recruiterNum == 0) {
-                        newText = "No " + unit.unitName + " recruiters active";
-                    }
-                    else {
-                        if (unit.recruiterNum == 1) {
-                            newText = "1 recruiter";
-                        }
-                        else {
-                            newText = unit.recruiterNum + " recruiters";
-                        }
-
-                        var recruitingNow = unit.recruiterNum * unit.passiveRecruitNum;
-                        newText += " recruiting " + recruitingNow + " ";
-                            
-                        if (recruitingNow == 1) {
-                            newText += unit.unitName;
-                        }
-                        else {
-                            newText += unit.unitNamePlural;
-                        }
-
-                        if ((int)unit.recruiterSpeed == 1) {
-                            newText += " every second";
-                        }
-                        else {
-                            newText += " every " + (int)unit.recruiterSpeed + " seconds";
-                        }
-                    }
+                    // TODO: this was buggy, so I just neutralized the default and let UIManager handle it. Come back if you have time.
                     break;
 
                 default:
