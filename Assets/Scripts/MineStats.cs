@@ -8,6 +8,7 @@ public class MineStats : MonoBehaviour {
     public string mineName;
     public bool locked;
     public string resourceName;
+    public string mineDesc;
     public float resourceNum;
     public int mineSpeed;
     public string[] workersAllowed;
@@ -28,22 +29,7 @@ public class MineStats : MonoBehaviour {
         // calculate total worker gathering power
         else
         {
-            var totalGather = 0;
-
-
-            foreach(KeyValuePair<UnitStats, int> worker in workerList) {
-                // verify that unit is allowed and unlocked
-                if(worker.Key.locked) {
-                    print(worker.Key.unitName + " tried to gather " + resourceName + ", but that unit type is locked");
-                }
-                else if (!workersAllowed.Contains(worker.Key.unitName)) {
-                    print(worker.Key.unitName + " tried to gather " + resourceName + ", but it is not allowed to work in that mine");
-                }
-                else {
-                    // gather efficacy is #workers * modified gathering rate, rounded down 
-                    totalGather += (int)(worker.Value * worker.Key.baseGather * worker.Key.modGather);
-                }
-            }
+            var totalGather = CalculateTotalGather();
 
             if (totalGather > 0) {
                 // succeed
@@ -58,4 +44,28 @@ public class MineStats : MonoBehaviour {
         StartCoroutine(GatherResources());
     }
 	
+    public int CalculateTotalGather() {
+        var totalGather = 0;
+
+
+        foreach (KeyValuePair<UnitStats, int> worker in workerList)
+        {
+            // verify that unit is allowed and unlocked
+            if (worker.Key.locked)
+            {
+                print(worker.Key.unitName + " tried to contribute to " + resourceName + " gathering, but that unit type is locked");
+            }
+            else if (!workersAllowed.Contains(worker.Key.unitName))
+            {
+                print(worker.Key.unitName + " tried to contribute to " + resourceName + " gathering, but it is not allowed to work in that mine");
+            }
+            else
+            {
+                // gather efficacy is #workers * modified gathering rate, rounded down 
+                totalGather += (int)(worker.Value * worker.Key.baseGather * worker.Key.modGather);
+            }
+        }
+
+        return totalGather;
+    }
 }
