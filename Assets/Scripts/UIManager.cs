@@ -98,7 +98,7 @@ public class UIManager : MonoBehaviour {
 
     public void Hire (GameObject unitType) {
         UnitStats unit = unitType.GetComponent<UnitStats>();
-        int cost = (int)Math.Floor(unit.recruiterCost);
+        int cost = unit.RecruiterCost();
 
         // ensure unit is unlocked
         if (unit.locked)
@@ -126,9 +126,8 @@ public class UIManager : MonoBehaviour {
                 StartCoroutine(unit.PassiveRecruit());
             }
 
-            // modify recruiter cost
-            unit.recruiterCost *= unit.recruiterCostMultiplier;
-            cost = (int)Math.Floor(unit.recruiterCost);
+            // get new recruiter cost
+            cost = unit.RecruiterCost();
 
             // update UI
             UpdateHireButtonDisplay(unit, cost);
@@ -203,7 +202,7 @@ public class UIManager : MonoBehaviour {
         // then update production readout
         displayText = minePanel.Find("NumProduction").GetComponent<Text>();
 
-        newText = "Producing " + mine.CalculateTotalGather() + " " + mine.resourceName + " every " + mine.mineSpeed + " seconds";
+        newText = "Producing " + mine.TotalGatherOfAllWorkers() + " " + mine.resourceName + " every " + mine.mineSpeed + " seconds";
         displayText.text = newText;
     }
 
@@ -289,10 +288,48 @@ public class UIManager : MonoBehaviour {
         {
             if (!unit.locked)
             {
-                armyStrength += (int)(unit.baseStrength * unit.modStrength * unit.unitNum);
+                armyStrength += (int)(unit.baseStrength * unit.strengthMultiplier * unit.unitNum);
             }
         }
 
         return armyStrength;
+    }
+
+    public void Victory()
+    {
+        // TODO: make this suck way less
+
+        // double-check victory condition
+        if (CalculateArmyStrength() >= villageStrength)
+        {
+            // reset data and prepare for final swarm
+            var army = armyManager.GetComponentsInChildren<UnitStats>();
+            var mines = mineManager.GetComponentsInChildren<MineStats>();
+            Dictionary<Sprite, int> finalSwarm = new Dictionary<Sprite, int>();
+
+            foreach (MineStats mine in mines)
+            {
+                mine.resourceNum = 0;
+                mine.workerList = new Dictionary<UnitStats, int>();
+                if (mine.resourceName != "Iron") { mine.locked = true; }
+            }
+
+            foreach (UnitStats unit in army)
+            {
+                
+                if (!unit.locked && unit.unitNum > 0)
+                {
+                    finalSwarm.Add(unit.unitSprite, unit.unitNum);
+                }
+                unit.unitNum = 0;
+                unit.strengthMultiplier = 1;
+                unit.gatherMultiplier = 1;
+                unit.recruiterNum = 0;
+                if (unit.unitName != "Orc") { unit.locked = true; }
+            }
+
+            // TODO: release final swarm
+            // TODO: display victory screen
+        }
     }
 }

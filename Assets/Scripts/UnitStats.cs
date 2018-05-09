@@ -10,11 +10,11 @@ public class UnitStats : MonoBehaviour {
     public int unitNum;
     public int recruitNum;
     public float baseStrength;
-    public float modStrength;
+    public float strengthMultiplier;
     public int baseGather;
-    public float modGather;
+    public float gatherMultiplier;
     public int recruiterNum;
-    public float recruiterCost;
+    public float recruiterBaseCost;
     public float recruiterCostMultiplier;
     public float recruiterSpeed;
     public int passiveRecruitNum;
@@ -46,6 +46,21 @@ public class UnitStats : MonoBehaviour {
         }
 
         StartCoroutine(PassiveRecruit());
+    }
+
+    public int RecruiterCost()
+    {
+        return (int)(recruiterBaseCost * Mathf.Pow(recruiterCostMultiplier, recruiterNum));
+    }
+
+    public int TotalGather()
+    {
+        return (int)(baseGather * gatherMultiplier);
+    }
+
+    public int TotalStrength()
+    {
+        return (int)(baseStrength * strengthMultiplier);
     }
 
 }

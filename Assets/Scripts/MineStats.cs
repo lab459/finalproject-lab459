@@ -10,7 +10,8 @@ public class MineStats : MonoBehaviour {
     public string resourceName;
     public string mineDesc;
     public float resourceNum;
-    public int mineSpeed;
+    public float mineSpeed;
+    public float mineSpeedMultiplier;
     public string[] workersAllowed;
     public Dictionary<UnitStats, int> workerList = new Dictionary<UnitStats, int>();
     public Sprite mineDoor;
@@ -19,7 +20,7 @@ public class MineStats : MonoBehaviour {
     {
 
         // wait for speed to elapse
-        yield return new WaitForSeconds(mineSpeed);
+        yield return new WaitForSeconds(mineSpeed * mineSpeedMultiplier);
 
         // ensure mine is unlocked
         if (locked)
@@ -29,7 +30,7 @@ public class MineStats : MonoBehaviour {
         // calculate total worker gathering power
         else
         {
-            var totalGather = CalculateTotalGather();
+            var totalGather = TotalGatherOfAllWorkers();
 
             if (totalGather > 0) {
                 // succeed
@@ -44,7 +45,7 @@ public class MineStats : MonoBehaviour {
         StartCoroutine(GatherResources());
     }
 	
-    public int CalculateTotalGather() {
+    public int TotalGatherOfAllWorkers() {
         var totalGather = 0;
 
 
@@ -61,8 +62,8 @@ public class MineStats : MonoBehaviour {
             }
             else
             {
-                // gather efficacy is #workers * modified gathering rate, rounded down 
-                totalGather += (int)(worker.Value * worker.Key.baseGather * worker.Key.modGather);
+                // add unit's gathering score to total gathering score
+                totalGather += worker.Value * worker.Key.TotalGather();
             }
         }
 

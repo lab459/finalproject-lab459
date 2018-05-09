@@ -72,7 +72,7 @@ public class UnitPanelLayoutManager : MonoBehaviour
                     break;
 
                 case "UnitStats":
-                    newText = "Strength: " + (unit.baseStrength * unit.modStrength) + "\nGather: " + (unit.baseGather * unit.modGather);
+                    newText = "Strength: " + unit.TotalStrength() + "\nGather: " + unit.TotalGather();
                     newText = newText.Replace("\\n", "\n"); // ensure that newlines are properly escaped
                     child.GetComponent<Text>().text = newText;
                     break;
@@ -87,8 +87,8 @@ public class UnitPanelLayoutManager : MonoBehaviour
                     break;
 
                 case "HireButton":
-                    newText = "Hire " + unit.unitName + " Recruiter\nCost: " + (int)unit.recruiterCost + " ";
-                    if ((int)unit.recruiterCost == 1) { newText += unit.unitName; } else { newText += unit.unitNamePlural; }
+                    newText = "Hire " + unit.unitName + " Recruiter\nCost: " + unit.RecruiterCost() + " ";
+                    if (unit.RecruiterCost() == 1) { newText += unit.unitName; } else { newText += unit.unitNamePlural; }
                     child.transform.GetChild(0).GetComponent<Text>().text = newText;
 
                     // hook up onclick function
