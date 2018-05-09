@@ -64,7 +64,7 @@ public class UnitPanelLayoutManager : MonoBehaviour
                     break;
 
                 case "UnitPortrait":
-                    child.GetComponent<Image>().sprite = unit.unitSprite.GetComponent<SpriteRenderer>().sprite;
+                    child.GetComponent<Image>().sprite = unit.unitSprite;
                     break;
 
                 case "UnitDesc":

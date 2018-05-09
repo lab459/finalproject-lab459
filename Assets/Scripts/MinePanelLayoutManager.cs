@@ -56,7 +56,6 @@ public class MinePanelLayoutManager : MonoBehaviour {
     {
         var newObj = (GameObject)Instantiate(minePanelPrefab, transform);
         newObj.name = mine.resourceName + "MinePanel";
-        string newText;
 
         // iterate over object's children, replacing placeholders with values from statblock
         foreach (Transform child in newObj.transform) 
@@ -114,8 +113,7 @@ public class MinePanelLayoutManager : MonoBehaviour {
         // Generate buttons for all valid units, filling space of placeholder rect transform in prefab
         var availableSpace = child.GetComponent<RectTransform>().sizeDelta;
         var buttonSize = new Vector2(availableSpace.x, availableSpace.y / validWorkers.Count);
-        var plusY = 10f; // start at 10 to fix offset bug, figure out later
-        // This is a placeholder variable allowing this system to have flexible employ numbers down the line
+        var plusY = 10f; // start at 10 to fix offset bug
         var workerNum = 1;
         GameObject newButton;
 

@@ -9,7 +9,7 @@ public class UnitStats : MonoBehaviour {
     public string unitDesc;
     public int unitNum;
     public int recruitNum;
-    public int baseStrength;
+    public float baseStrength;
     public float modStrength;
     public int baseGather;
     public float modGather;
@@ -18,8 +18,8 @@ public class UnitStats : MonoBehaviour {
     public float recruiterCostMultiplier;
     public float recruiterSpeed;
     public int passiveRecruitNum;
-    public GameObject unitSprite;
-    private const int MAX_BATCH = 5;
+    public Sprite unitSprite;
+    private const int MAX_BATCH = 10;
 
     public IEnumerator PassiveRecruit() {
 
@@ -41,7 +41,7 @@ public class UnitStats : MonoBehaviour {
             // spawn up to max-batch walkers
             recruitingNow = Mathf.Min(recruitingNow, MAX_BATCH);
             for (int i = 0; i < recruitingNow; i++) {
-                UIManager.SpawnWalker(this);
+                GameObject.Find("UIManager").GetComponent<UIManager>().SpawnWalker(this);
             }
         }
 

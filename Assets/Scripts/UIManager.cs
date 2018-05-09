@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
 
     public GameObject activeTab;
+    public GameObject walkerPrefab;
     private const int MAX_SPRITES_ON_SCREEN = 30;
     private const float ACTIVE_TAB_ALPHA = 1f;
     private const float INACTIVE_TAB_ALPHA = 0.3f;
@@ -121,7 +122,7 @@ public class UIManager : MonoBehaviour {
     }
 
 
-    public static void SpawnWalker (UnitStats unit) {
+    public void SpawnWalker (UnitStats unit) {
         // when a unit is recruited, spawn a sprite that walks across the screen
         // based on https://answers.unity.com/questions/1164719/2d-spawn-across-screen.html
 
@@ -130,8 +131,9 @@ public class UIManager : MonoBehaviour {
             // set starting position
             Vector3 spawnPosition = new Vector3(-10f, 2.8f, 0);
             Quaternion spawnRotation = new Quaternion(0, 180, 0, 0);
-            // spawn the walker
-            GameObject walker = Instantiate(unit.unitSprite, spawnPosition, spawnRotation) as GameObject;
+            // spawn the walker with appropriate sprite
+            GameObject walker = Instantiate(walkerPrefab, spawnPosition, spawnRotation) as GameObject;
+            walker.GetComponent<SpriteRenderer>().sprite = unit.unitSprite;
             // randomize sort order
             walker.GetComponent<SpriteRenderer>().sortingOrder = UnityEngine.Random.Range(0, 5);
         }
