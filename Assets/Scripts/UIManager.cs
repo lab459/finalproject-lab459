@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,6 +74,9 @@ public class UIManager : MonoBehaviour {
             }
             // remove workers from army
             unit.unitNum -= workerNum;
+
+            // update UI
+            UpdateMineWorkerDisplay(mine);
         }
     }
 
@@ -88,7 +92,7 @@ public class UIManager : MonoBehaviour {
         // ensure enough units in army
         else if (unit.unitNum < cost)
         {
-            print("hire failed; fewer than " + cost + " " + unit.unitName + "s in army");
+            print("hire failed; fewer than " + cost + " " + unit.unitNamePlural + " in army");
         }
         // hire recruiter
         else
@@ -102,7 +106,7 @@ public class UIManager : MonoBehaviour {
             // if this is the first recruiter of this type, start the passive recruitment coroutine
             if (unit.recruiterNum == 1)
             {
-                print("starting passive recruitment of " + unit.unitName + "s");
+                print("starting passive recruitment of " + unit.unitNamePlural);
                 StartCoroutine(unit.PassiveRecruit());
             }
 
@@ -136,7 +140,7 @@ public class UIManager : MonoBehaviour {
     private void UpdateHireButtonDisplay(UnitStats unit, int cost) {
         // whenever the price of hiring a recruiter changes, call this to find and update the cost display in the button
         Text buttonText = GameObject.Find(unit.unitName + "Panel").transform.Find("HireButton").transform.Find("Text").GetComponent<Text>();
-        var newText = "Hire " + unit.unitName + " Recruiter\nCost: " + cost + " " + unit.unitName + "s";
+        var newText = "Hire " + unit.unitName + " Recruiter\nCost: " + cost + " " + unit.unitNamePlural;
         newText = newText.Replace("\\n", "\n"); // ensure that newlines are properly escaped
         buttonText.text = newText;
     }
@@ -152,6 +156,37 @@ public class UIManager : MonoBehaviour {
         newText += "generating " + recruitingNum + " ";
         if (recruitingNum == 1) { newText += unit.unitName; } else { newText += unit.unitNamePlural; }
         if ((int)unit.recruiterSpeed == 1) { newText += " every second"; } else { newText += " every " + unit.recruiterSpeed + " seconds"; }
+        displayText.text = newText;
+    }
+
+    public void UpdateMineWorkerDisplay(MineStats mine)
+    {
+        // whenever the number of workers in a given mine changes, call this to find and update the worker display
+        Transform minePanel = GameObject.Find(mine.resourceName + "MinePanel").transform;
+
+        // update worker list first
+        Text displayText = minePanel.Find("NumWorkers").GetComponent<Text>();
+
+        var newText = "";
+
+        if (mine.workerList.Count == 0)
+        {
+            newText = "none";
+        }
+        else
+        {
+            foreach (KeyValuePair<UnitStats, int> worker in mine.workerList)
+            {
+                newText += worker.Key.unitNamePlural + ": " + worker.Value + "\n";
+            }
+        }
+
+        displayText.text = newText;
+
+        // then update production readout
+        displayText = minePanel.Find("NumProduction").GetComponent<Text>();
+
+        newText = "Producing " + mine.CalculateTotalGather() + " " + mine.resourceName + " every " + mine.mineSpeed + " seconds";
         displayText.text = newText;
     }
 

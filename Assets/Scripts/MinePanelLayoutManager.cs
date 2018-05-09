@@ -81,21 +81,8 @@ public class MinePanelLayoutManager : MonoBehaviour {
                     break;
 
                 case "NumWorkers":
-                    newText = "";
-
-                    if (mine.workerList.Count == 0) 
-                    {
-                        newText = "none";
-                    }
-                    else 
-                    {
-                        foreach (KeyValuePair<UnitStats, int> worker in mine.workerList)
-                        {
-                            newText += worker.Key.unitNamePlural + ": " + worker.Value + "\n";
-                        }
-                    }
-
-                    child.GetComponent<Text>().text = newText;
+                    // reusable function lives in UIManager now
+                    myUIManager.GetComponent<UIManager>().UpdateMineWorkerDisplay(mine);
                     break;
 
                 case "EmployButtonContainer":
