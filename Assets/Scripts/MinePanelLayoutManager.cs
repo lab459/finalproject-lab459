@@ -76,19 +76,17 @@ public class MinePanelLayoutManager : MonoBehaviour {
                     break;
 
                 case "NumProduction":
-                    newText = "Producing " + mine.CalculateTotalGather() + " " + mine.resourceName + " every " + mine.mineSpeed + " seconds";
-                    child.GetComponent<Text>().text = newText;
+                    // reusable function lives in UIManager now
+                    myUIManager.GetComponent<UIManager>().UpdateMineWorkerDisplay(mine);
                     break;
 
                 case "NumWorkers":
-                    // reusable function lives in UIManager now
-                    myUIManager.GetComponent<UIManager>().UpdateMineWorkerDisplay(mine);
+                    // this is handled by UpdateMineWorkerDisplay in the previous case
                     break;
 
                 case "EmployButtonContainer":
                     // large code chunk, so I popped it out into a separate function
                     HandleEmployButtonContainer(mine, child);
-
                     break;
 
                 default:
