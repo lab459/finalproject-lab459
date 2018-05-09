@@ -8,11 +8,26 @@ public class UIManager : MonoBehaviour {
 
     public GameObject activeTab;
     public GameObject walkerPrefab;
+    public GameObject armyManager;
+    public GameObject mineManager;
+    public GameObject conquerButton;
+    public int villageStrength;
     private const int MAX_SPRITES_ON_SCREEN = 30;
     private const float ACTIVE_TAB_ALPHA = 1f;
     private const float INACTIVE_TAB_ALPHA = 0.3f;
+    private Color notificationColor = new Color (0.871f, 0.753f, 0.322f, 1);
+    private bool victoryNotified = false;
 
-    public void Recruit (GameObject unitType) {
+	private void Update()
+	{
+        // check victory condition
+        if (!victoryNotified && CalculateArmyStrength() >= villageStrength)
+        {
+            NotifyVictory();
+        }
+	}
+
+	public void Recruit (GameObject unitType) {
         UnitStats unit = unitType.GetComponent<UnitStats>();
 
         // ensure unit is unlocked
@@ -192,6 +207,18 @@ public class UIManager : MonoBehaviour {
         displayText.text = newText;
     }
 
+
+    // activate conquer button and notify player that victory conditions have been met
+    public void NotifyVictory()
+    {
+        // activate conquer button -- has to be direct reference rather than find, because it's inactive @ start
+        conquerButton.SetActive(true);
+
+        // highlight tab
+        GameObject.Find("ConquerTab").GetComponent<Image>().color = notificationColor;
+
+    }
+
     public void SwitchTabs(GameObject newTab) {
         if (newTab != activeTab) {
             // switch tab colors
@@ -220,8 +247,8 @@ public class UIManager : MonoBehaviour {
         // cheat to give yourself 1K of everything you've unlocked
         print("CHEATING -- granting 1K unlocked units & resources");
 
-        var units = GameObject.Find("ArmyManager").GetComponentsInChildren<UnitStats>();
-        var mines = GameObject.Find("MineManager").GetComponentsInChildren<MineStats>();
+        var units = armyManager.GetComponentsInChildren<UnitStats>();
+        var mines = mineManager.GetComponentsInChildren<MineStats>();
 
         foreach (var unit in units)
         {
@@ -239,8 +266,8 @@ public class UIManager : MonoBehaviour {
         // cheat to unlock everything
        print("CHEATING -- unlocking all unit & resource types");
 
-        var units = GameObject.Find("ArmyManager").GetComponentsInChildren<UnitStats>();
-        var mines = GameObject.Find("MineManager").GetComponentsInChildren<MineStats>();
+        var units = armyManager.GetComponentsInChildren<UnitStats>();
+        var mines = mineManager.GetComponentsInChildren<MineStats>();
 
         foreach (var unit in units)
         {
@@ -250,5 +277,22 @@ public class UIManager : MonoBehaviour {
         {
             mine.locked = false;
         }
+    }
+
+    public int CalculateArmyStrength()
+    {
+        // iterate over objects in army manager and aggregate army strength (rounded to int)
+        var army = armyManager.GetComponentsInChildren<UnitStats>();
+        var armyStrength = 0;
+
+        foreach (UnitStats unit in army)
+        {
+            if (!unit.locked)
+            {
+                armyStrength += (int)(unit.baseStrength * unit.modStrength * unit.unitNum);
+            }
+        }
+
+        return armyStrength;
     }
 }
