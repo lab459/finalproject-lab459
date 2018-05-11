@@ -51,3 +51,6 @@ TagManager:
   - name: actors
     uniqueID: 2023107555
     locked: 0
+  - name: overlayall
+    uniqueID: 2586168507
+    locked: 0

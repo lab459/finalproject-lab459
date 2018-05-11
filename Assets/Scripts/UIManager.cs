@@ -11,8 +11,11 @@ public class UIManager : MonoBehaviour {
     public GameObject armyManager;
     public GameObject mineManager;
     public GameObject conquerButton;
+    public GameObject victoryPanel;
+    public GameObject swarmerPrefab;
     public int villageStrength;
     private const int MAX_SPRITES_ON_SCREEN = 30;
+    private const int MAX_SWARM_TOTAL = 500;
     private const float ACTIVE_TAB_ALPHA = 1f;
     private const float INACTIVE_TAB_ALPHA = 0.3f;
     private Color notificationColor = new Color (0.871f, 0.753f, 0.322f, 1);
@@ -299,37 +302,48 @@ public class UIManager : MonoBehaviour {
     {
         // TODO: make this suck way less
 
-        // double-check victory condition
-        if (CalculateArmyStrength() >= villageStrength)
+        // double-check victory condition TODO: fix this for debug!
+        if (true)//CalculateArmyStrength() >= villageStrength)
         {
-            // reset data and prepare for final swarm
+            // prepare for final swarm
             var army = armyManager.GetComponentsInChildren<UnitStats>();
-            var mines = mineManager.GetComponentsInChildren<MineStats>();
+            var armyCount = 0;
             Dictionary<Sprite, int> finalSwarm = new Dictionary<Sprite, int>();
-
-            foreach (MineStats mine in mines)
-            {
-                mine.resourceNum = 0;
-                mine.workerList = new Dictionary<UnitStats, int>();
-                if (mine.resourceName != "Iron") { mine.locked = true; }
-            }
 
             foreach (UnitStats unit in army)
             {
-                
                 if (!unit.locked && unit.unitNum > 0)
                 {
                     finalSwarm.Add(unit.unitSprite, unit.unitNum);
+                    armyCount += unit.unitNum;
                 }
-                unit.unitNum = 0;
-                unit.strengthMultiplier = 1;
-                unit.gatherMultiplier = 1;
-                unit.recruiterNum = 0;
-                if (unit.unitName != "Orc") { unit.locked = true; }
             }
 
-            // TODO: release final swarm
-            // TODO: display victory screen
+            // display victory screen
+            victoryPanel.SetActive(true);
+
+            // release final swarm
+            foreach (KeyValuePair<Sprite, int> unit in finalSwarm)
+            {
+                var swarmer = Instantiate(swarmerPrefab);
+                swarmer.name = unit.Key.name + "Swarmer";
+                ParticleSystem swarmsystem = swarmer.GetComponent<ParticleSystem>();
+                var swarmEmitter = swarmsystem.emission;
+                var swarmTexture = swarmsystem.GetComponent<Renderer>().material;
+
+                // modify particle emitter to spawn this unit's sprite
+                swarmTexture.SetTexture(0, unit.Key.texture);
+
+                // modify particle emitter's rate using percentage of army comprised by unit type
+                int swarmerNum;
+                if (armyCount > MAX_SWARM_TOTAL)
+                {
+                    swarmerNum = (unit.Value / armyCount) * MAX_SWARM_TOTAL;
+                }
+                else { swarmerNum = unit.Value; }
+
+                swarmEmitter.rateOverTime = swarmerNum / swarmsystem.main.duration;
+            }
         }
     }
 }
