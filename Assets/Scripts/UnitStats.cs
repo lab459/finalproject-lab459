@@ -19,6 +19,7 @@ public class UnitStats : MonoBehaviour {
     public float recruiterSpeed;
     public int passiveRecruitNum;
     public Sprite unitSprite;
+    public Material fswarm;
     private const int MAX_BATCH = 10;
 
     public IEnumerator PassiveRecruit() {

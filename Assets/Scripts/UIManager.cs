@@ -308,13 +308,13 @@ public class UIManager : MonoBehaviour {
             // prepare for final swarm
             var army = armyManager.GetComponentsInChildren<UnitStats>();
             var armyCount = 0;
-            Dictionary<Sprite, int> finalSwarm = new Dictionary<Sprite, int>();
+            Dictionary<Material, int> finalSwarm = new Dictionary<Material, int>();
 
             foreach (UnitStats unit in army)
             {
                 if (!unit.locked && unit.unitNum > 0)
                 {
-                    finalSwarm.Add(unit.unitSprite, unit.unitNum);
+                    finalSwarm.Add(unit.fswarm, unit.unitNum);
                     armyCount += unit.unitNum;
                 }
             }
@@ -323,16 +323,16 @@ public class UIManager : MonoBehaviour {
             victoryPanel.SetActive(true);
 
             // release final swarm
-            foreach (KeyValuePair<Sprite, int> unit in finalSwarm)
+            foreach (KeyValuePair<Material, int> unit in finalSwarm)
             {
                 var swarmer = Instantiate(swarmerPrefab);
                 swarmer.name = unit.Key.name + "Swarmer";
                 ParticleSystem swarmsystem = swarmer.GetComponent<ParticleSystem>();
                 var swarmEmitter = swarmsystem.emission;
-                var swarmMaterial = swarmsystem.GetComponent<Renderer>().material;
+                var swarmMaterial = swarmsystem.GetComponent<ParticleSystemRenderer>().material;
 
                 // modify particle emitter to spawn this unit's sprite
-                swarmMaterial.shader.Equals(unit.Key.texture);
+                swarmMaterial = unit.Key;
 
                 // modify particle emitter's rate using percentage of army comprised by unit type
                 int swarmerNum;
