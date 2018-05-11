@@ -329,10 +329,10 @@ public class UIManager : MonoBehaviour {
                 swarmer.name = unit.Key.name + "Swarmer";
                 ParticleSystem swarmsystem = swarmer.GetComponent<ParticleSystem>();
                 var swarmEmitter = swarmsystem.emission;
-                var swarmTexture = swarmsystem.GetComponent<Renderer>().material;
+                var swarmMaterial = swarmsystem.GetComponent<Renderer>().material;
 
                 // modify particle emitter to spawn this unit's sprite
-                swarmTexture.SetTexture(0, unit.Key.texture);
+                swarmMaterial.shader.Equals(unit.Key.texture);
 
                 // modify particle emitter's rate using percentage of army comprised by unit type
                 int swarmerNum;
