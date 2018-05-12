@@ -239,7 +239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &180856065
 RectTransform:
   m_ObjectHideFlags: 0
@@ -700,6 +700,11 @@ Prefab:
       propertyPath: gatherMultiplier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114899534581920402, guid: 04363e81d4d354169af15df485c7e358,
+        type: 2}
+      propertyPath: fswarm
+      value: 
+      objectReference: {fileID: 2100000, guid: 841040bf1f9284e489a3aee8c8013499, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04363e81d4d354169af15df485c7e358, type: 2}
   m_IsPrefabParent: 0
@@ -902,6 +907,11 @@ Prefab:
       propertyPath: gatherMultiplier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114899534581920402, guid: 04363e81d4d354169af15df485c7e358,
+        type: 2}
+      propertyPath: fswarm
+      value: 
+      objectReference: {fileID: 2100000, guid: fb2f3ed1b301147efb85a0144f8ca57e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04363e81d4d354169af15df485c7e358, type: 2}
   m_IsPrefabParent: 0
@@ -1522,6 +1532,11 @@ Prefab:
       propertyPath: gatherMultiplier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114899534581920402, guid: 04363e81d4d354169af15df485c7e358,
+        type: 2}
+      propertyPath: fswarm
+      value: 
+      objectReference: {fileID: 2100000, guid: 151979fefaa764f37971c5ab3468d093, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04363e81d4d354169af15df485c7e358, type: 2}
   m_IsPrefabParent: 0
@@ -2382,6 +2397,11 @@ Prefab:
       propertyPath: gatherMultiplier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114899534581920402, guid: 04363e81d4d354169af15df485c7e358,
+        type: 2}
+      propertyPath: fswarm
+      value: 
+      objectReference: {fileID: 2100000, guid: e994953c673f54612b4d68cc2896dc66, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04363e81d4d354169af15df485c7e358, type: 2}
   m_IsPrefabParent: 0
@@ -6535,6 +6555,11 @@ Prefab:
       propertyPath: gatherMultiplier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114899534581920402, guid: 04363e81d4d354169af15df485c7e358,
+        type: 2}
+      propertyPath: fswarm
+      value: 
+      objectReference: {fileID: 2100000, guid: fbd50840566c648338dda403eabef544, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04363e81d4d354169af15df485c7e358, type: 2}
   m_IsPrefabParent: 0
@@ -7448,6 +7473,11 @@ Prefab:
       propertyPath: gatherMultiplier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114899534581920402, guid: 04363e81d4d354169af15df485c7e358,
+        type: 2}
+      propertyPath: fswarm
+      value: 
+      objectReference: {fileID: 2100000, guid: e4cb32adf002240fdb39c77e17cabc3a, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04363e81d4d354169af15df485c7e358, type: 2}
   m_IsPrefabParent: 0
@@ -7732,6 +7762,11 @@ Prefab:
       propertyPath: gatherMultiplier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114899534581920402, guid: 04363e81d4d354169af15df485c7e358,
+        type: 2}
+      propertyPath: fswarm
+      value: 
+      objectReference: {fileID: 2100000, guid: a7fc3eacf9d214304862c747e086b880, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04363e81d4d354169af15df485c7e358, type: 2}
   m_IsPrefabParent: 0
@@ -7968,6 +8003,11 @@ Prefab:
       propertyPath: gatherMultiplier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114899534581920402, guid: 04363e81d4d354169af15df485c7e358,
+        type: 2}
+      propertyPath: fswarm
+      value: 
+      objectReference: {fileID: 2100000, guid: e5dcf7fed5d8d42efa46fd4eb38f8adc, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04363e81d4d354169af15df485c7e358, type: 2}
   m_IsPrefabParent: 0

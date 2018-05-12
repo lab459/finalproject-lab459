@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +16,9 @@ public class UIManager : MonoBehaviour {
     public GameObject swarmerPrefab;
     public int villageStrength;
     private const int MAX_SPRITES_ON_SCREEN = 30;
-    private const int MAX_SWARM_TOTAL = 500;
+    private const int MAX_SWARM_PER_SECOND = 100;
+    private const int DEFAULT_SWARM_DURATION = 3;
+    private const int SWARMFACTOR = 10;
     private const float ACTIVE_TAB_ALPHA = 1f;
     private const float INACTIVE_TAB_ALPHA = 0.3f;
     private Color notificationColor = new Color (0.871f, 0.753f, 0.322f, 1);
@@ -303,46 +306,57 @@ public class UIManager : MonoBehaviour {
         // TODO: make this suck way less
 
         // double-check victory condition TODO: fix this for debug!
-        if (true)//CalculateArmyStrength() >= villageStrength)
+        if (CalculateArmyStrength() >= villageStrength)
         {
             // prepare for final swarm
             var army = armyManager.GetComponentsInChildren<UnitStats>();
-            var armyCount = 0;
+            var swarmyCount = 0;
             Dictionary<Material, int> finalSwarm = new Dictionary<Material, int>();
 
             foreach (UnitStats unit in army)
             {
                 if (!unit.locked && unit.unitNum > 0)
                 {
-                    finalSwarm.Add(unit.fswarm, unit.unitNum);
-                    armyCount += unit.unitNum;
+                    var num = Mathf.Max((int)(unit.unitNum / SWARMFACTOR), 1);
+                    finalSwarm.Add(unit.fswarm, num);
+                    swarmyCount += num;
                 }
             }
 
             // display victory screen
             victoryPanel.SetActive(true);
 
-            // release final swarm
+            var swarmDuration = DEFAULT_SWARM_DURATION;
+
+            // if army is large enough, lengthen the final swarm
+            if (swarmyCount > MAX_SWARM_PER_SECOND * DEFAULT_SWARM_DURATION)
+            {
+                swarmDuration = (int)(swarmyCount / MAX_SWARM_PER_SECOND);
+            }
+
+            // I tried to make this work off of the unitSprite, but the textures didn't want to swap
+            // so instead, I manually created and hooked up a material to each unit
+            // RELEASE THE SWARM!
             foreach (KeyValuePair<Material, int> unit in finalSwarm)
             {
                 var swarmer = Instantiate(swarmerPrefab);
                 swarmer.name = unit.Key.name + "Swarmer";
                 ParticleSystem swarmsystem = swarmer.GetComponent<ParticleSystem>();
+                var swarmMain = swarmsystem.main;
                 var swarmEmitter = swarmsystem.emission;
-                var swarmMaterial = swarmsystem.GetComponent<ParticleSystemRenderer>().material;
+
+                swarmsystem.Stop(); // pause so everything takes effect
 
                 // modify particle emitter to spawn this unit's sprite
-                swarmMaterial = unit.Key;
+                swarmsystem.GetComponent<ParticleSystemRenderer>().material = unit.Key;
 
-                // modify particle emitter's rate using percentage of army comprised by unit type
-                int swarmerNum;
-                if (armyCount > MAX_SWARM_TOTAL)
-                {
-                    swarmerNum = (unit.Value / armyCount) * MAX_SWARM_TOTAL;
-                }
-                else { swarmerNum = unit.Value; }
+                // modify swarm duration
+                swarmMain.duration = swarmDuration;
 
-                swarmEmitter.rateOverTime = swarmerNum / swarmsystem.main.duration;
+                // modify particle emitter's rate
+                swarmEmitter.rateOverTime = unit.Value / swarmsystem.main.duration;
+
+                swarmsystem.Play();
             }
         }
     }
