@@ -1,10 +1,11 @@
 ﻿<Properties StartupConfiguration="{00336624-8498-0CD6-2423-058341127466}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Upgrade.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="EmptyTextFile.txt">
     <Files>
-      <File FileName="Assets/Scripts/UIManager.cs" Line="360" Column="14" />
+      <File FileName="Assets/Scripts/UIManager.cs" Line="4" Column="3" />
       <File FileName="Assets/Scripts/MineStats.cs" Line="39" Column="14" />
-      <File FileName="Assets/Scripts/Upgrade.cs" Line="17" Column="21" />
+      <File FileName="Assets/Scripts/UpgradeManager.cs" Line="190" Column="1" />
+      <File FileName="EmptyTextFile.txt" Line="190" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -23,7 +23,7 @@ public class Upgrade
     public GameObject Target;
     public UpgradeEffect Effect;
 
-    public void AddItem(string name, string type, bool expended, int quantity)
+    public void AddRecipeItem(string name, string type, bool expended, int quantity)
     {
         var item = new RecipeItem
         {
@@ -39,7 +39,8 @@ public class Upgrade
 public class UpgradeManager : MonoBehaviour
 {
     public GameObject UIManager;
-    public UIManager myUIManager;
+    private UIManager myUIManager;
+    public Upgrade myTestUpgrade;
 
 	private void Start()
 	{
@@ -139,6 +140,50 @@ public class UpgradeManager : MonoBehaviour
                 // deliver the goods
                 upg.Effect(upg.Target);
             }
+        }
+    }
+
+    public Upgrade ConstructTestUpgrade()
+    {
+        // testing system -- constructs an upgrade that purchases imp unlock
+        var upg = new Upgrade
+        {
+            Name = "test upgrade",
+            Target = GameObject.Find("Imp"),
+            Effect = UpgradeEffect_UnlockTarget,
+            Recipe = new List<RecipeItem>()
+        };
+
+        upg.AddRecipeItem("Orc", "unit", true, 10);
+        upg.AddRecipeItem("Iron", "resource", true, 10);
+
+        return upg;
+    }
+
+    public void TriggerTestUpgrade()
+    {
+        // testing system -- constructs a test upgrade then triggers it, to be hooked up to button
+        myTestUpgrade = ConstructTestUpgrade();
+        PurchaseUpgrade(myTestUpgrade);
+    }
+
+    // an upgrade effect that unlocks a unit or mine type
+    public void UpgradeEffect_UnlockTarget(GameObject target)
+    {
+        var unit = target.GetComponent<UnitStats>();
+        var mine = target.GetComponent<MineStats>();
+
+        if (unit != null)
+        {
+            unit.locked = false;
+        }
+        else if (mine != null)
+        {
+            mine.locked = false;
+        }
+        else
+        {
+            print("tried to unlock a mine/unit with upgrade but couldn't get its stats");
         }
     }
 }
