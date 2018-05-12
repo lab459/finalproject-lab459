@@ -59,15 +59,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PlayAgain.cs" />
     <Compile Include="Assets\Scripts\ConquerPanelManager.cs" />
     <Compile Include="Assets\Scripts\MinePanelLayoutManager.cs" />
     <Compile Include="Assets\Scripts\MineStats.cs" />
     <Compile Include="Assets\Scripts\MoveWalkers.cs" />
+    <Compile Include="Assets\Scripts\PlayAgain.cs" />
     <Compile Include="Assets\Scripts\TabProperties.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\UnitPanelLayoutManager.cs" />
     <Compile Include="Assets\Scripts\UnitStats.cs" />
+    <Compile Include="Assets\Scripts\Upgrade.cs" />
     <Compile Include="Assets\Scripts\WalletManager.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/lauraberman/GD50/CATO/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
